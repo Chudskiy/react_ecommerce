@@ -5,6 +5,7 @@ import {createCategory, getCategories, removeCategory} from "../../../functions/
 import {toast} from "react-toastify";
 import {Link} from "react-router-dom";
 import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
+import CategoryForm from "../../../components/nav/CategoryForm";
 
 const CategoryCreate = () => {
     const [name, setName] = useState('');
@@ -61,26 +62,6 @@ const CategoryCreate = () => {
         }
     };
 
-    const categoryForm = () => (
-        <form onSubmit={handleSubmit}>
-            <div className="form-group">
-                <label>Name</label>
-                <input
-                    type='text'
-                    value={name}
-                    placeholder='Enter category'
-                    onChange={e => setName(e.target.value)}
-                    className='form-control'
-                    autoFocus
-                    required
-                />
-            </div>
-            <br/>
-            <button className='btn btn-outline-primary'>
-                Save
-            </button>
-        </form>
-    )
 
     return (
         <div className="container-fluid">
@@ -94,7 +75,13 @@ const CategoryCreate = () => {
                     ) : (
                         <h4>Create Category</h4>
                     )}
-                    {categoryForm()}
+
+                    <CategoryForm
+                        handleSubmit={handleSubmit}
+                        name={name}
+                        setName={setName}
+                    />
+
                     {categories.map(c => (
                         <div
                             key={c._id}
