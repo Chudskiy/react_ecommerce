@@ -8,7 +8,7 @@ const CategoryForm = ({handleSubmit, name, setName}) => {
                 <input
                     type='text'
                     value={name}
-                    placeholder='Enter category'
+                    // placeholder='Enter category'
                     onChange={e => setName(e.target.value)}
                     className='form-control'
                     autoFocus
