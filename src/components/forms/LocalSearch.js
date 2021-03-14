@@ -11,7 +11,7 @@ const LocalSearch = ({keyword, setKeyword}) => {
             <input
                 type='search'
                 value={keyword}
-                placeholder='Search'
+                placeholder='Filter'
                 onChange={handleSearchChange}
                 className='form-control mb-4'
             />

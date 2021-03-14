@@ -7,25 +7,30 @@ import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import CategoryForm from "../../../components/forms/CategoryForm";
 import LocalSearch from "../../../components/forms/LocalSearch";
 import {getCategories} from "../../../functions/category";
-import {createSub, removeSub} from "../../../functions/sub";
+import {createSub, getSubs, removeSub} from "../../../functions/sub";
 
 const SubCreate = () => {
     const [name, setName] = useState('');
     const [loading, setLoading] = useState('');
     const [category, setCategory] = useState('');
     const [categories, setCategories] = useState([]);
+    const [subs, setSubs] = useState([]);
     const [keyword, setKeyword] = useState('');
 
     const {user} = useSelector(state => ({...state}));
 
     useEffect(() => {
         loadCategories();
-
+        loadSubs();
     }, [])
 
     const loadCategories = () => {
         getCategories().then(c => setCategories(c.data));
     };
+
+    const loadSubs = () => {
+        getSubs().then(s => setSubs(s.data));
+    }
 
 
     const handleSubmit = (e) => {
@@ -38,6 +43,7 @@ const SubCreate = () => {
                 setLoading(false);
                 setName('');
                 toast.success(`"${res.data.name}" is created`);
+                loadSubs();
             })
             .catch(err => {
                 setLoading(false);
@@ -52,6 +58,7 @@ const SubCreate = () => {
                 .then(res => {
                     setLoading(false);
                     toast.error(`${res.data.name} deleted`);
+                    loadSubs();
                 })
                 .catch(err => {
                     if (err.response.status === 400) {
@@ -95,8 +102,6 @@ const SubCreate = () => {
                         </select>
                     </div>
 
-                    {JSON.stringify(category)}
-
                     <CategoryForm
                         handleSubmit={handleSubmit}
                         name={name}
@@ -109,25 +114,25 @@ const SubCreate = () => {
                     />
 
 
-                    {/*{categories.filter(searched(keyword)).map(c => (*/}
-                    {/*    <div*/}
-                    {/*        key={c._id}*/}
-                    {/*        className='alert alert-secondary'*/}
-                    {/*    >*/}
-                    {/*        {c.name}*/}
-                    {/*        <span*/}
-                    {/*            className='btn btn-small float-right'*/}
-                    {/*            onClick={() => handleRemove(c.slug)}*/}
-                    {/*        >*/}
-                    {/*            <DeleteOutlined className='text-danger'/>*/}
-                    {/*        </span>*/}
-                    {/*        <Link to={`/admin/category/${c.slug}`}>*/}
-                    {/*            <span className='btn btn-small float-right'>*/}
-                    {/*             <EditOutlined className='text-warning'/>*/}
-                    {/*            </span>*/}
-                    {/*        </Link>*/}
-                    {/*    </div>*/}
-                    {/*))}*/}
+                    {subs.filter(searched(keyword)).map(s => (
+                        <div
+                            key={s._id}
+                            className='alert alert-secondary'
+                        >
+                            {s.name}
+                            <span
+                                className='btn btn-small float-right'
+                                onClick={() => handleRemove(s.slug)}
+                            >
+                                <DeleteOutlined className='text-danger'/>
+                            </span>
+                            <Link to={`/admin/sub/${s.slug}`}>
+                                <span className='btn btn-small float-right'>
+                                 <EditOutlined className='text-warning'/>
+                                </span>
+                            </Link>
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>
