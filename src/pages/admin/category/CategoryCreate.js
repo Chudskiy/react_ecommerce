@@ -5,7 +5,8 @@ import {createCategory, getCategories, removeCategory} from "../../../functions/
 import {toast} from "react-toastify";
 import {Link} from "react-router-dom";
 import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
-import CategoryForm from "../../../components/nav/CategoryForm";
+import CategoryForm from "../../../components/forms/CategoryForm";
+import LocalSearch from "../../../components/forms/LocalSearch";
 
 const CategoryCreate = () => {
     const [name, setName] = useState('');
@@ -63,14 +64,8 @@ const CategoryCreate = () => {
         }
     };
 
-    const handleSearchChange = (e) => {
-        e.preventDefault();
-
-        setKeyword(e.target.value.toLowerCase());
-    };
 
     const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
-
 
     return (
         <div className="container-fluid">
@@ -91,12 +86,9 @@ const CategoryCreate = () => {
                         setName={setName}
                     />
 
-                    <input
-                        type='search'
-                        value={keyword}
-                        placeholder='Search'
-                        onChange={handleSearchChange}
-                        className='form-control mb-4'
+                    <LocalSearch
+                        keyword={keyword}
+                        setKeyword={setKeyword}
                     />
 
                     {categories.filter(searched(keyword)).map(c => (

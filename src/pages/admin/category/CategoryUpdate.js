@@ -3,7 +3,7 @@ import AdminNav from "../../../components/nav/AdminNav";
 import {useSelector} from "react-redux";
 import {getCategory, updateCategory} from "../../../functions/category";
 import {toast} from "react-toastify";
-import CategoryForm from "../../../components/nav/CategoryForm";
+import CategoryForm from "../../../components/forms/CategoryForm";
 
 const CategoryUpdate = ({history, match}) => {
     const [name, setName] = useState('');
