@@ -5,19 +5,19 @@ import {useSelector} from "react-redux";
 import {toast} from "react-toastify";
 
 const initialState = {
-    title: '',
-    description: '',
+    title: 'Macbook PRO 2020',
+    description: 'This is the best Apple product',
+    price: '45000',
     categories: [],
     category: '',
-    price: '',
     subs: [],
-    shipping: '',
-    quantity: '',
+    shipping: 'Yes',
+    quantity: '50',
     images: [],
     colors: ['Black', 'White', 'Brown', 'Silver', 'Blue'],
     brands: ['Apple', 'Microsoft', 'Lenovo', 'Samsung', 'ASUS'],
-    color: '',
-    brand: '',
+    color: 'White',
+    brand: 'Apple',
 };
 
 const ProductCreate = () => {
@@ -47,7 +47,8 @@ const ProductCreate = () => {
         createProduct(values, user.token)
             .then(res => {
                 console.log('res = ', res);
-                toast.success(`"${res.data.title}" is created`);
+                window.alert(`"${res.data.title}" is created`);
+                window.location.reload();
             })
             .catch(err => {
                 console.log('err = ', err);
