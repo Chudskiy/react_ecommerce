@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import AdminNav from "../../components/nav/AdminNav";
 import {createProduct} from "../../functions/product";
 import {useSelector} from "react-redux";
 import {toast} from "react-toastify";
 import ProductCreateForm from "../../components/forms/ProductCreateForm";
+import {getCategories} from "../../functions/category";
 
 const initialState = {
     title: 'Macbook PRO 2020',
@@ -26,21 +27,15 @@ const ProductCreate = () => {
 
     const {user} = useSelector(state => ({...state}));
 
-    const {
-        title,
-        description,
-        price,
-        categories,
-        category,
-        subs,
-        shipping,
-        quantity,
-        images,
-        colors,
-        brands,
-        color,
-        brand
-    } = values;
+    useEffect(() => {
+        loadCategories();
+    }, [])
+
+const loadCategories = () => {
+    getCategories()
+        .then((c) => setValues({...values, categories: c.data}));
+};
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -77,7 +72,6 @@ const ProductCreate = () => {
                         handleChange={handleChange}
                         values={values}
                     />
-
                 </div>
             </div>
         </div>
