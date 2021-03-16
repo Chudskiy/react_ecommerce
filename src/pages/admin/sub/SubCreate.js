@@ -32,7 +32,6 @@ const SubCreate = () => {
         getSubs().then(s => setSubs(s.data));
     }
 
-
     const handleSubmit = (e) => {
         e.preventDefault();
 

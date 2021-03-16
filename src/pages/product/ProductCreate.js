@@ -4,7 +4,8 @@ import {createProduct} from "../../functions/product";
 import {useSelector} from "react-redux";
 import {toast} from "react-toastify";
 import ProductCreateForm from "../../components/forms/ProductCreateForm";
-import {getCategories} from "../../functions/category";
+import {getCategories, getCategorySubs} from "../../functions/category";
+import axios from "axios";
 
 const initialState = {
     title: 'Macbook PRO 2020',
@@ -24,6 +25,8 @@ const initialState = {
 
 const ProductCreate = () => {
     const [values, setValues] = useState(initialState);
+    const [any, setAny] = useState(null);
+    const [subOptions, setSubOptions] = useState([]);
 
     const {user} = useSelector(state => ({...state}));
 
@@ -31,11 +34,10 @@ const ProductCreate = () => {
         loadCategories();
     }, [])
 
-const loadCategories = () => {
-    getCategories()
-        .then((c) => setValues({...values, categories: c.data}));
-};
-
+    const loadCategories = () => {
+        getCategories()
+            .then((c) => setValues({...values, categories: c.data}));
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -57,6 +59,21 @@ const loadCategories = () => {
         setValues({...values, [e.target.name]: e.target.value});
     };
 
+
+    const handleCategoryChange = (e) => {
+        e.preventDefault();
+
+        console.log('CLICKED CATEGORY = ', e.target.value);
+        setValues({...values, category: e.target.value});
+
+        getCategorySubs(e.target.value)
+            .then((res) => {
+                console.log('res.data = ', res.data);
+                setSubOptions(res.data);
+            })
+    };
+
+
     return (
         <div className="container-fluid">
             <div className="row">
@@ -70,6 +87,7 @@ const loadCategories = () => {
                     <ProductCreateForm
                         handleSubmit={handleSubmit}
                         handleChange={handleChange}
+                        handleCategoryChange={handleCategoryChange}
                         values={values}
                     />
                 </div>
