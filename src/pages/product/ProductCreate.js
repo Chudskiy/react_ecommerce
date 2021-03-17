@@ -6,6 +6,7 @@ import {toast} from "react-toastify";
 import ProductCreateForm from "../../components/forms/ProductCreateForm";
 import {getCategories, getCategorySubs} from "../../functions/category";
 import axios from "axios";
+import FileUpload from "../../components/forms/FileUpload";
 
 const initialState = {
     title: 'Macbook PRO 2020',
@@ -83,6 +84,12 @@ const ProductCreate = () => {
                 <div className="col-md-10">
                     <h4>Product create</h4>
                     <br/>
+
+                    <div className="p-3">
+                        <FileUpload />
+                    </div>
+
+                    <br />
 
                     <ProductCreateForm
                         handleSubmit={handleSubmit}
