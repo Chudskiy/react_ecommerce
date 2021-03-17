@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from "react-redux";
 import Resizer from 'react-image-file-resizer';
 import axios from "axios";
-import {Avatar} from "antd";
+import {Avatar, Badge} from "antd";
 
 
 const FileUpload = ({values, setValues, setLoading}) => {
@@ -53,18 +53,54 @@ const FileUpload = ({values, setValues, setLoading}) => {
 
         // send back to server to upload to cloudinary
         // set url to images[] in the parent component - ProductCreate
-    }
+    };
+
+    const handleImageRemove = (public_id) => {
+        setLoading(true);
+
+        //console.log('image to remove = ', public_id);
+        axios.post(`${process.env.REACT_APP_API}/removeimage`,
+            {public_id},
+            {
+            headers: {
+                authtoken: user ? user.token : '',
+            }
+        })
+            .then(res => {
+                setLoading(false);
+
+                console.log('RESPONSE = ', res);
+
+                const {images} = values;
+                console.log('images = ', images);
+                const filteredImages = images.filter(item => {
+                    return item.public_id !== public_id;
+                });
+                setValues({...values, images: filteredImages});
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log('err = ', err);
+            })
+    };
 
     return (
         <>
             <div className="row">
                 {values.images && values.images.map(image => (
-                    <Avatar
+                    <Badge
+                        count={'X'}
                         key={image.public_id}
-                        src={image.url}
-                        size={100}
-                        className='m-3'
-                    />
+                        onClick={() => handleImageRemove(image.public_id)}
+                        style={{cursor: 'pointer'}}
+                    >
+                        <Avatar
+                            src={image.url}
+                            size={100}
+                            shape='square'
+                            className='ml-3'
+                        />
+                    </Badge>
                 ))}
             </div>
             <div className='row'>

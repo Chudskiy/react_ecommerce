@@ -5,8 +5,8 @@ import {useSelector} from "react-redux";
 import {toast} from "react-toastify";
 import ProductCreateForm from "../../components/forms/ProductCreateForm";
 import {getCategories, getCategorySubs} from "../../functions/category";
-import axios from "axios";
 import FileUpload from "../../components/forms/FileUpload";
+import {LoadingOutlined} from "@ant-design/icons";
 
 const initialState = {
     title: 'Macbook PRO 2020',
@@ -65,7 +65,7 @@ const ProductCreate = () => {
         e.preventDefault();
 
         // console.log('CLICKED CATEGORY = ', e.target.value);
-        setValues({...values,  subs: [], category: e.target.value});
+        setValues({...values, subs: [], category: e.target.value});
 
         getCategorySubs(e.target.value)
             .then((res) => {
@@ -83,7 +83,12 @@ const ProductCreate = () => {
                     <AdminNav/>
                 </div>
                 <div className="col-md-10">
-                    <h4>Product create</h4>
+                    {loading ? (
+                        <LoadingOutlined className='text-danger h1'/>
+                    ) : (
+                        <h4>Product create</h4>
+                    )}
+
                     <br/>
 
                     {JSON.stringify(values.images)}
@@ -96,7 +101,7 @@ const ProductCreate = () => {
                         />
                     </div>
 
-                    <br />
+                    <br/>
 
                     <ProductCreateForm
                         handleSubmit={handleSubmit}
