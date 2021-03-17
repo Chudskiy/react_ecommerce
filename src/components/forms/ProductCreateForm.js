@@ -4,6 +4,8 @@ const ProductCreateForm = ({
                                handleSubmit,
                                handleChange,
                                handleCategoryChange,
+                               subOptions,
+                               showSub,
                                values
                            }) => {
     const {
@@ -129,6 +131,9 @@ const ProductCreateForm = ({
                     ))}
                 </select>
             </div>
+
+            {subOptions ? subOptions.length : 'No any subOptions'}
+
             <button className="btn btn-outline-info">Save</button>
         </form>
     );

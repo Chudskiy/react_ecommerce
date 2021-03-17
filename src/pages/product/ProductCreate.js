@@ -25,8 +25,8 @@ const initialState = {
 
 const ProductCreate = () => {
     const [values, setValues] = useState(initialState);
-    const [any, setAny] = useState(null);
     const [subOptions, setSubOptions] = useState([]);
+    const [showSub, setShowSub] = useState(false);
 
     const {user} = useSelector(state => ({...state}));
 
@@ -59,7 +59,6 @@ const ProductCreate = () => {
         setValues({...values, [e.target.name]: e.target.value});
     };
 
-
     const handleCategoryChange = (e) => {
         e.preventDefault();
 
@@ -88,6 +87,8 @@ const ProductCreate = () => {
                         handleSubmit={handleSubmit}
                         handleChange={handleChange}
                         handleCategoryChange={handleCategoryChange}
+                        subOptions={subOptions}
+                        showSub={showSub}
                         values={values}
                     />
                 </div>
