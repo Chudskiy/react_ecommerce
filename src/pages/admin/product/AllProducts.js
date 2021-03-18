@@ -41,7 +41,7 @@ const AllProducts = () => {
 
                     <div className="row">
                         {products.length && products.map(product => (
-                            <div key={product._id} className="col-md-4">
+                            <div key={product._id} className="col-md-4 pb-3">
                                 <AdminProductCard
                                     product={product}
                                 />
