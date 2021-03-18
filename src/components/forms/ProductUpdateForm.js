@@ -24,6 +24,7 @@ const ProductUpdateForm = ({
 
     return (
         <form onSubmit={handleSubmit}>
+            {JSON.stringify(values)}
             <div className="form-group">
                 <label>Title</label>
                 <input
@@ -60,11 +61,11 @@ const ProductUpdateForm = ({
             <div className="form-group">
                 <label>Shipping</label>
                 <select
+                    value={shipping === 'Yes' ? 'Yes' : 'No'}
                     name="shipping"
                     className="form-control"
                     onChange={handleChange}
                 >
-                    <option>Please select</option>
                     <option value="No">No</option>
                     <option value="Yes">Yes</option>
                 </select>
@@ -84,11 +85,11 @@ const ProductUpdateForm = ({
             <div className="form-group">
                 <label>Color</label>
                 <select
+                    value={color}
                     name="color"
                     className="form-control"
                     onChange={handleChange}
                 >
-                    <option>Please select</option>
                     {colors.map(c => (
                         <option key={c} value={c}>
                             {c}
@@ -100,11 +101,11 @@ const ProductUpdateForm = ({
             <div className="form-group">
                 <label>Brand</label>
                 <select
+                    value={brand}
                     name="brand"
                     className="form-control"
                     onChange={handleChange}
                 >
-                    <option>Please select</option>
                     {brands.map(b => (
                         <option key={b} value={b}>
                             {b}
