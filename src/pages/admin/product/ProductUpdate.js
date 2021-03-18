@@ -1,19 +1,49 @@
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import AdminNav from "../../../components/nav/AdminNav";
-import {createProduct} from "../../../functions/product";
 import {useSelector} from "react-redux";
-import {toast} from "react-toastify";
-import ProductCreateForm from "../../../components/forms/ProductCreateForm";
-import {getCategories, getCategorySubs} from "../../../functions/category";
-import FileUpload from "../../../components/forms/FileUpload";
-import {LoadingOutlined} from "@ant-design/icons";
+import {getProduct} from "../../../functions/product";
+// import {toast} from "react-toastify";
+// import ProductCreateForm from "../../../components/forms/ProductCreateForm";
+// import {getCategories, getCategorySubs} from "../../../functions/category";
+// import FileUpload from "../../../components/forms/FileUpload";
+// import {LoadingOutlined} from "@ant-design/icons";
 
+const initialState = {
+    title: '',
+    description: '',
+    price: '',
+    categories: [],
+    category: '',
+    subs: [],
+    shipping: '',
+    quantity: '',
+    images: [],
+    colors: ['Black', 'White', 'Brown', 'Silver', 'Blue'],
+    brands: ['Apple', 'Microsoft', 'Lenovo', 'Samsung', 'ASUS'],
+    color: '',
+    brand: '',
+};
 
 const ProductUpdate = ({match}) => {
+    const [values, setValues] = useState(initialState);
     const {user} = useSelector(state => ({...state}));
 
     // router
     const {slug} = match.params;
+
+    useEffect(() => {
+        loadProduct();
+    }, [])
+
+    const loadProduct = () => {
+        getProduct(slug)
+            .then(p => {
+                setValues({...values, ...p.data});
+            })
+            .catch(err => {
+                console.log('err = ', err)
+            })
+    }
 
     return (
         <div className="container-fluid">
@@ -23,7 +53,7 @@ const ProductUpdate = ({match}) => {
                 </div>
                 <div className="col-md-10">
                     <h4>Product update</h4>
-                    {JSON.stringify(slug)}
+                    {JSON.stringify(values)}
                     <hr/>
                 </div>
             </div>

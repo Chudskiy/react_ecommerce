@@ -20,7 +20,7 @@ const AdminProductCard = ({product, handleRemove}) => {
             }
             actions={[
                 <Link to={`/admin/product/${slug}`}>
-                    <EditOutlined className='text-warning' />,
+                    <EditOutlined className='text-warning' />
                 </Link>,
                 <DeleteOutlined
                     className='text-danger'
