@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import AdminNav from "../../components/nav/AdminNav";
-import {createProduct} from "../../functions/product";
+import AdminNav from "../../../components/nav/AdminNav";
+import {createProduct} from "../../../functions/product";
 import {useSelector} from "react-redux";
 import {toast} from "react-toastify";
-import ProductCreateForm from "../../components/forms/ProductCreateForm";
-import {getCategories, getCategorySubs} from "../../functions/category";
-import FileUpload from "../../components/forms/FileUpload";
+import ProductCreateForm from "../../../components/forms/ProductCreateForm";
+import {getCategories, getCategorySubs} from "../../../functions/category";
+import FileUpload from "../../../components/forms/FileUpload";
 import {LoadingOutlined} from "@ant-design/icons";
 
 const initialState = {
@@ -64,7 +64,6 @@ const ProductCreate = () => {
     const handleCategoryChange = (e) => {
         e.preventDefault();
 
-        // console.log('CLICKED CATEGORY = ', e.target.value);
         setValues({...values, subs: [], category: e.target.value});
 
         getCategorySubs(e.target.value)
@@ -74,7 +73,6 @@ const ProductCreate = () => {
             });
         setShowSub(true);
     };
-
 
     return (
         <div className="container-fluid">
@@ -88,11 +86,7 @@ const ProductCreate = () => {
                     ) : (
                         <h4>Product create</h4>
                     )}
-
                     <br/>
-
-                    {JSON.stringify(values.images)}
-
                     <div className="p-3">
                         <FileUpload
                             values={values}
@@ -100,9 +94,7 @@ const ProductCreate = () => {
                             setLoading={setLoading}
                         />
                     </div>
-
                     <br/>
-
                     <ProductCreateForm
                         handleSubmit={handleSubmit}
                         handleChange={handleChange}
