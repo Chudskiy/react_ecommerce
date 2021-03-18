@@ -3,6 +3,7 @@ import AdminNav from "../../../components/nav/AdminNav";
 import {useSelector} from "react-redux";
 import {getProduct} from "../../../functions/product";
 import ProductUpdateForm from "../../../components/forms/ProductUpdateForm";
+import {getCategories, getCategorySubs} from "../../../functions/category";
 // import {toast} from "react-toastify";
 // import {getCategories, getCategorySubs} from "../../../functions/category";
 // import FileUpload from "../../../components/forms/FileUpload";
@@ -12,7 +13,6 @@ const initialState = {
     title: '',
     description: '',
     price: '',
-    categories: [],
     category: '',
     subs: [],
     shipping: '',
@@ -26,6 +26,9 @@ const initialState = {
 
 const ProductUpdate = ({match}) => {
     const [values, setValues] = useState(initialState);
+    const [categories, setCategories] = useState([]);
+    const [subOptions, setSubOptions] = useState([]);
+
     const {user} = useSelector(state => ({...state}));
 
     // router
@@ -33,6 +36,7 @@ const ProductUpdate = ({match}) => {
 
     useEffect(() => {
         loadProduct();
+        loadCategories();
     }, [])
 
     const loadProduct = () => {
@@ -44,6 +48,29 @@ const ProductUpdate = ({match}) => {
                 console.log('err = ', err)
             })
     };
+
+    const handleCategoryChange = (e) => {
+        e.preventDefault();
+
+        setValues({...values, subs: [], category: e.target.value});
+
+        getCategorySubs(e.target.value)
+            .then((res) => {
+                console.log('res.data = ', res.data);
+                setSubOptions(res.data);
+            });
+    };
+
+    const loadCategories = () => {
+        getCategories()
+            .then(c => {
+                // console.log('categories = ', c.data);
+                setCategories(c.data);
+            })
+            .catch(err => {
+                console.log('err = ', err);
+            });
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -66,6 +93,9 @@ const ProductUpdate = ({match}) => {
                     <ProductUpdateForm
                         handleSubmit={handleSubmit}
                         handleChange={handleChange}
+                        handleCategoryChange={handleCategoryChange}
+                        categories={categories}
+                        subOptions={subOptions}
                         setValues={setValues}
                         values={values}
                     />

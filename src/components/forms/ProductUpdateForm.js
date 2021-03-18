@@ -3,6 +3,9 @@ import React from 'react';
 const ProductUpdateForm = ({
                                handleSubmit,
                                handleChange,
+                               handleCategoryChange,
+                               categories,
+                               subOptions,
                                setValues,
                                values
                            }) => {
@@ -10,7 +13,6 @@ const ProductUpdateForm = ({
         title,
         description,
         price,
-        categories,
         category,
         subs,
         shipping,
@@ -113,8 +115,25 @@ const ProductUpdateForm = ({
                     ))}
                 </select>
             </div>
-            <br />
-            <button className="btn btn-outline-info">Save</button>
+
+            <div className="form-group">
+                <label>Category</label>
+                <select
+                    name='category'
+                    className='form-control'
+                    onChange={handleCategoryChange}
+                >
+                    <option>{category ? category.name : 'Please select'}</option>
+                    {categories.length > 0 && categories.map(c => (
+                        <option key={c._id} value={c._id}>
+                            {c.name}
+                        </option>
+                    ))}
+                </select>
+            </div>
+
+            <br/>
+            <button className="btn btn-outline-info">Update</button>
         </form>
     );
 };
