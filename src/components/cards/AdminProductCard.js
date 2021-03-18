@@ -25,7 +25,7 @@ const AdminProductCard = ({product, handleRemove}) => {
                 <DeleteOutlined
                     className='text-danger'
                     onClick={() => handleRemove(slug)}
-                />,
+                />
             ]}
         >
             <Meta

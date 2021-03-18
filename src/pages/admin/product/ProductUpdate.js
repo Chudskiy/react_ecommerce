@@ -9,8 +9,11 @@ import FileUpload from "../../../components/forms/FileUpload";
 import {LoadingOutlined} from "@ant-design/icons";
 
 
-const ProductUpdate = () => {
+const ProductUpdate = ({match}) => {
     const {user} = useSelector(state => ({...state}));
+
+    // router
+    const {slug} = match.params;
 
     return (
         <div className="container-fluid">
@@ -20,6 +23,7 @@ const ProductUpdate = () => {
                 </div>
                 <div className="col-md-10">
                     <h4>Product update</h4>
+                    {JSON.stringify(slug)}
                     <hr/>
                 </div>
             </div>
