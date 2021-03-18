@@ -1,13 +1,8 @@
 import React from 'react';
-import {Select} from "antd";
-import {Option} from "antd/es/mentions";
 
-const ProductCreateForm = ({
+const ProductUpdateForm = ({
                                handleSubmit,
                                handleChange,
-                               handleCategoryChange,
-                               subOptions,
-                               showSub,
                                setValues,
                                values
                            }) => {
@@ -64,15 +59,15 @@ const ProductCreateForm = ({
 
             <div className="form-group">
                 <label>Shipping</label>
-                <Select
+                <select
                     name="shipping"
                     className="form-control"
                     onChange={handleChange}
                 >
-                    <Option>Please select</Option>
-                    <Option value="No">No</Option>
-                    <Option value="Yes">Yes</Option>
-                </Select>
+                    <option>Please select</option>
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
             </div>
 
             <div className="form-group">
@@ -88,76 +83,39 @@ const ProductCreateForm = ({
 
             <div className="form-group">
                 <label>Color</label>
-                <Select
+                <select
                     name="color"
                     className="form-control"
                     onChange={handleChange}
                 >
-                    <Option>Please select</Option>
+                    <option>Please select</option>
                     {colors.map(c => (
-                        <Option key={c} value={c}>
+                        <option key={c} value={c}>
                             {c}
-                        </Option>
+                        </option>
                     ))}
-                </Select>
+                </select>
             </div>
 
             <div className="form-group">
                 <label>Brand</label>
-                <Select
+                <select
                     name="brand"
                     className="form-control"
                     onChange={handleChange}
                 >
-                    <Option>Please select</Option>
+                    <option>Please select</option>
                     {brands.map(b => (
-                        <Option key={b} value={b}>
+                        <option key={b} value={b}>
                             {b}
-                        </Option>
+                        </option>
                     ))}
-                </Select>
+                </select>
             </div>
-            <br/>
-            <div className="form-group">
-                <label>Category</label>
-                <Select
-                    name='category'
-                    className='form-control'
-                    onChange={handleCategoryChange}
-                >
-                    <Option>Please select</Option>
-
-                    {categories.length > 0 && categories.map(c => (
-                        <Option key={c._id} value={c._id}>
-                            {c.name}
-                        </Option>
-                    ))}
-                </Select>
-            </div>
-
-            {showSub && (
-                <div>
-                    <label>Sub Categories</label>
-                    <Select
-                        mode='multiple'
-                        style={{width: '100%'}}
-                        placeholder='Please select'
-                        value={subs}
-                        name='subs'
-                        onChange={value => setValues({...values, subs: value})}
-                    >
-                        {subOptions.length && subOptions.map(s => (
-                            <Option key={s._id} value={s._id}>
-                                {s.name}
-                            </Option>
-                        ))}
-                    </Select>
-                </div>
-            )}
             <br />
             <button className="btn btn-outline-info">Save</button>
         </form>
     );
 };
 
-export default ProductCreateForm;
+export default ProductUpdateForm;
