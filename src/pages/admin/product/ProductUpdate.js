@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import AdminNav from "../../../components/nav/AdminNav";
 import {useSelector} from "react-redux";
-import {getProduct} from "../../../functions/product";
+import {getProduct, updateProduct} from "../../../functions/product";
 import ProductUpdateForm from "../../../components/forms/ProductUpdateForm";
 import {getCategories, getCategorySubs} from "../../../functions/category";
 import FileUpload from "../../../components/forms/FileUpload";
 import {LoadingOutlined} from "@ant-design/icons";
+import {toast} from "react-toastify";
 // import {toast} from "react-toastify";
 // import {getCategories, getCategorySubs} from "../../../functions/category";
 // import FileUpload from "../../../components/forms/FileUpload";
@@ -26,7 +27,7 @@ const initialState = {
     brand: '',
 };
 
-const ProductUpdate = ({match}) => {
+const ProductUpdate = ({history, match}) => {
     const [values, setValues] = useState(initialState);
     const [categories, setCategories] = useState([]);
     const [subOptions, setSubOptions] = useState([]);
@@ -34,7 +35,7 @@ const ProductUpdate = ({match}) => {
     const [selectedCategory, setSelectedCategory] = useState('');
     const [loading, setLoading] = useState(false);
 
-    // const {user} = useSelector(state => ({...state}));
+    const {user} = useSelector(state => ({...state}));
 
     // router
     const {slug} = match.params;
@@ -99,8 +100,25 @@ const ProductUpdate = ({match}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setLoading(true);
 
-        //
+        values.subs = arrayOfSubs;
+        values.category = selectedCategory ? selectedCategory : values.category;
+
+        updateProduct(slug, values, user.token)
+            .then(res => {
+                setLoading(false);
+                console.log('PRODUCT UPDATE RESPONSE = ', res);
+                toast.success(`"${res.data.title}" is updated`);
+
+                history.push('/admin/products');
+
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log('PRODUCT UPDATE ERROR = ', err);
+                toast.error(err.response.data.err);
+            })
     };
 
     const handleChange = (e) => {
@@ -115,7 +133,7 @@ const ProductUpdate = ({match}) => {
                 </div>
                 <div className="col-md-10">
                     {loading ? (
-                        <LoadingOutlined classname='text-danger h1' />
+                        <LoadingOutlined className='text-danger h1' />
                     ) : (
                         <h4>Product update</h4>
                     )}
