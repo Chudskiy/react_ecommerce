@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {getProductsByCount} from "../functions/product";
 import ProductCard from "../components/cards/ProductCard";
 import {LoadingOutlined} from "@ant-design/icons";
+import Jumbotron from "../components/cards/Jumbotron";
 
 const Home = () => {
     const [products, setProducts] = useState([]);
@@ -22,20 +23,19 @@ const Home = () => {
 
     return (
         <>
-            <div className='jumbotron'>
-                {loading ? (
-                    <LoadingOutlined/>
-                ) : (
-                    <h4>All Products</h4>
-                )}
-                <div className="container">
-                    <div className="row">
-                        {products.length && products.map(product => (
-                            <div key={product._id} className="col-md-4">
-                                <ProductCard product={product}/>
-                            </div>
-                        ))}
-                    </div>
+            <div className='jumbotron text-danger h1 font-weight-bold text-center'>
+                <Jumbotron
+                    text={['Latest Products', 'New Arrivals', 'Best Sellers']}
+                />
+            </div>
+
+            <div className="container">
+                <div className="row">
+                    {products.length && products.map(product => (
+                        <div key={product._id} className="col-md-4">
+                            <ProductCard product={product}/>
+                        </div>
+                    ))}
                 </div>
             </div>
         </>
