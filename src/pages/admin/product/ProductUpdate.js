@@ -28,8 +28,9 @@ const ProductUpdate = ({match}) => {
     const [values, setValues] = useState(initialState);
     const [categories, setCategories] = useState([]);
     const [subOptions, setSubOptions] = useState([]);
+    const [arrayOfSubs, setArrayOfSubs] = useState([]);
 
-    const {user} = useSelector(state => ({...state}));
+    // const {user} = useSelector(state => ({...state}));
 
     // router
     const {slug} = match.params;
@@ -42,10 +43,20 @@ const ProductUpdate = ({match}) => {
     const loadProduct = () => {
         getProduct(slug)
             .then(p => {
+                // 1 load single product
                 setValues({...values, ...p.data});
-            })
-            .catch(err => {
-                console.log('err = ', err)
+                // 2 load single product category subs
+                getCategorySubs(p.data.category._id)
+                    .then(res => {
+                        setSubOptions(res.data);
+                    });
+                // 3 prepare array of sub ids to show as default sub values
+                const arr = [];
+                p.data.subs.map(s => {
+                    arr.push(s._id);
+                });
+                console.log('ARR = ', arr);
+                setArrayOfSubs((prev) => arr); // required for ant design select to work
             })
     };
 
@@ -56,7 +67,7 @@ const ProductUpdate = ({match}) => {
 
         getCategorySubs(e.target.value)
             .then((res) => {
-                console.log('res.data = ', res.data);
+                console.log('CATEGORY SUBS = ', res.data);
                 setSubOptions(res.data);
             });
     };
@@ -97,6 +108,8 @@ const ProductUpdate = ({match}) => {
                         categories={categories}
                         subOptions={subOptions}
                         setValues={setValues}
+                        arrayOfSubs={arrayOfSubs}
+                        setArrayOfSubs={setArrayOfSubs}
                         values={values}
                     />
                     <hr/>

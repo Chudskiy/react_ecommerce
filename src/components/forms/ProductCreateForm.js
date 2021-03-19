@@ -1,6 +1,7 @@
 import React from 'react';
 import {Select} from "antd";
-import {Option} from "antd/es/mentions";
+
+const {Option} = Select;
 
 const ProductCreateForm = ({
                                handleSubmit,
