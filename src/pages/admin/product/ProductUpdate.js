@@ -4,6 +4,8 @@ import {useSelector} from "react-redux";
 import {getProduct} from "../../../functions/product";
 import ProductUpdateForm from "../../../components/forms/ProductUpdateForm";
 import {getCategories, getCategorySubs} from "../../../functions/category";
+import FileUpload from "../../../components/forms/FileUpload";
+import {LoadingOutlined} from "@ant-design/icons";
 // import {toast} from "react-toastify";
 // import {getCategories, getCategorySubs} from "../../../functions/category";
 // import FileUpload from "../../../components/forms/FileUpload";
@@ -30,6 +32,7 @@ const ProductUpdate = ({match}) => {
     const [subOptions, setSubOptions] = useState([]);
     const [arrayOfSubs, setArrayOfSubs] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('');
+    const [loading, setLoading] = useState(false);
 
     // const {user} = useSelector(state => ({...state}));
 
@@ -111,7 +114,22 @@ const ProductUpdate = ({match}) => {
                     <AdminNav/>
                 </div>
                 <div className="col-md-10">
-                    <h4>Product update</h4>
+                    {loading ? (
+                        <LoadingOutlined classname='text-danger h1' />
+                    ) : (
+                        <h4>Product update</h4>
+                    )}
+
+                    {/*{JSON.stringify(values)}*/}
+
+                    <div className="p-3">
+                        <FileUpload
+                            values={values}
+                            setValues={setValues}
+                            setLoading={setLoading}
+                        />
+                    </div>
+                    <br />
                     <ProductUpdateForm
                         handleSubmit={handleSubmit}
                         handleChange={handleChange}
