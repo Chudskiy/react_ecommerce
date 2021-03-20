@@ -65,15 +65,15 @@ const ProductCreateForm = ({
 
             <div className="form-group">
                 <label>Shipping</label>
-                <Select
+                <select
                     name="shipping"
                     className="form-control"
                     onChange={handleChange}
                 >
-                    <Option>Please select</Option>
-                    <Option value="No">No</Option>
-                    <Option value="Yes">Yes</Option>
-                </Select>
+                    <option>Please select</option>
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
             </div>
 
             <div className="form-group">
@@ -89,51 +89,51 @@ const ProductCreateForm = ({
 
             <div className="form-group">
                 <label>Color</label>
-                <Select
+                <select
                     name="color"
                     className="form-control"
                     onChange={handleChange}
                 >
-                    <Option>Please select</Option>
+                    <ption>Please select</ption>
                     {colors.map(c => (
-                        <Option key={c} value={c}>
+                        <option key={c} value={c}>
                             {c}
-                        </Option>
+                        </option>
                     ))}
-                </Select>
+                </select>
             </div>
 
             <div className="form-group">
                 <label>Brand</label>
-                <Select
+                <select
                     name="brand"
                     className="form-control"
                     onChange={handleChange}
                 >
-                    <Option>Please select</Option>
+                    <option>Please select</option>
                     {brands.map(b => (
-                        <Option key={b} value={b}>
+                        <option key={b} value={b}>
                             {b}
-                        </Option>
+                        </option>
                     ))}
-                </Select>
+                </select>
             </div>
             <br/>
             <div className="form-group">
                 <label>Category</label>
-                <Select
+                <select
                     name='category'
                     className='form-control'
                     onChange={handleCategoryChange}
                 >
-                    <Option>Please select</Option>
+                    <option>Please select</option>
 
                     {categories.length > 0 && categories.map(c => (
-                        <Option key={c._id} value={c._id}>
+                        <option key={c._id} value={c._id}>
                             {c.name}
-                        </Option>
+                        </option>
                     ))}
-                </Select>
+                </select>
             </div>
 
             {showSub && (

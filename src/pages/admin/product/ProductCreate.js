@@ -9,19 +9,19 @@ import FileUpload from "../../../components/forms/FileUpload";
 import {LoadingOutlined} from "@ant-design/icons";
 
 const initialState = {
-    title: 'Macbook PRO 2020',
-    description: 'This is the best Apple product',
-    price: '45000',
+    title: '',
+    description: '',
+    price: '',
     categories: [],
     category: '',
     subs: [],
-    shipping: 'Yes',
-    quantity: '50',
+    shipping: '',
+    quantity: '',
     images: [],
     colors: ['Black', 'White', 'Brown', 'Silver', 'Blue'],
     brands: ['Apple', 'Microsoft', 'Lenovo', 'Samsung', 'ASUS'],
-    color: 'White',
-    brand: 'Apple',
+    color: '',
+    brand: '',
 };
 
 const ProductCreate = () => {
@@ -31,6 +31,8 @@ const ProductCreate = () => {
     const [loading, setLoading] = useState(false);
 
     const {user} = useSelector(state => ({...state}));
+
+    console.log('VALUES = ', values)
 
     useEffect(() => {
         loadCategories();
@@ -49,6 +51,7 @@ const ProductCreate = () => {
                 console.log('res = ', res);
                 window.alert(`"${res.data.title}" is created`);
                 window.location.reload();
+                // setValues('');
             })
             .catch(err => {
                 console.log('err = ', err);
