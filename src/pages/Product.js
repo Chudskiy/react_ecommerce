@@ -17,7 +17,7 @@ const Product = ({match}) => {
 
     return (
         <div className='container-fluid'>
-            <div className="rov pt-4">
+            <div className="row pt-4">
                 <SingleProduct product={product} />
             </div>
 
