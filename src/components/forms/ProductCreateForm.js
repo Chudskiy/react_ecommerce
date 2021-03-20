@@ -94,7 +94,7 @@ const ProductCreateForm = ({
                     className="form-control"
                     onChange={handleChange}
                 >
-                    <ption>Please select</ption>
+                    <option>Please select</option>
                     {colors.map(c => (
                         <option key={c} value={c}>
                             {c}

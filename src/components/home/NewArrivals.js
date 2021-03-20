@@ -13,12 +13,11 @@ const NewArrivals = () => {
 
     useEffect(() => {
         loadAllProducts();
-        getProductsCount().then(res => setProductsCount(res.data))
     }, [page])
 
-    // useEffect(() => {
-    //     getProductsCount().then(res => setProductsCount(res.data))
-    // }, [])
+    useEffect(() => {
+        getProductsCount().then(res => setProductsCount(res.data))
+    }, [])
 
     const loadAllProducts = () => {
         setLoading(true);
