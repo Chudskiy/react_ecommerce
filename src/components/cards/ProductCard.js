@@ -14,8 +14,7 @@ const ProductCard = ({product}) => {
             cover={
                 <img
                     src={images && images.length ? images[0].url : laptop}
-                    // style={{height: '150px', objectFit: 'cover'}}
-                    style={{height: '300px', objectFit: 'cover'}}
+                    style={{height: '150px', objectFit: 'cover'}}
                     className='p-1'
                 />
             }
