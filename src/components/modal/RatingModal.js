@@ -4,17 +4,24 @@ import {StarOutlined} from "@ant-design/icons";
 import {Modal} from "antd";
 import {toast} from "react-toastify";
 import {useHistory} from "react-router-dom";
+import {useParams} from "react-router";
 
 const RatingModal = ({children}) => {
     const [modalVisible, setModalVisible] = useState(false);
+
     const {user} = useSelector(state => ({...state}));
+    const {slug} = useParams();
+
     const history = useHistory();
 
     const handleModal = () => {
         if (user && user.token) {
             setModalVisible(true);
         } else {
-            history.push('/login');
+            history.push({
+                pathname: '/login',
+                state: {from: `/product/${slug}`}
+            });
         }
     }
 
